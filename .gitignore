@@ -1,0 +1,17 @@
+target/
+/target/
+*/target/*
+target/*
+
+### Eclipse ###
+.classpath
+/.classpath
+.project
+/.project
+.settings
+/.settings
+/build/
+.orig
+/README.md.orig
+/fast-aws-connections/fast-aws-connection-dynamodb/nbactions.xml
+/fast-aws-connections/nbactions.xml

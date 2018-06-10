@@ -1,0 +1,35 @@
+[
+    {
+        "ParameterKey": "QueueName",
+        "ParameterValue": "Fast-AWS-Connections-Queue"
+    },
+    {
+        "ParameterKey": "ReceiveMessageWaitTimeSeconds",
+        "ParameterValue": "0"
+    },
+    {
+        "ParameterKey": "VisibilityTimeout",
+        "ParameterValue": "30"
+    },
+    {
+        "ParameterKey": "MaximumMessageSize",
+        "ParameterValue": "262144"
+    },
+    {
+        "ParameterKey": "MessageRetentionPeriod",
+        "ParameterValue": "345600"
+    },
+    {
+        "ParameterKey": "DelaySeconds",
+        "ParameterValue": "0"
+    },
+    {
+        "ParameterKey": "TableName",
+        "ParameterValue": "Fast-AWS-Connections-GestaoIdentificador"
+    },
+    {
+        "ParameterKey": "TableNamePolymorphic",
+        "ParameterValue": "Fast-AWS-Connections-EC-Polymorphic"
+    }
+]
+

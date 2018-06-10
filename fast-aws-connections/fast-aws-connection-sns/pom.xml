@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>br.com.fast.aws.connections</groupId>
+		<artifactId>fast-aws-connections</artifactId>
+		<version>2.10.73</version>
+	</parent>
+
+	<groupId>br.com.fast.aws.connections.sns</groupId>
+	<artifactId>fast-aws-connection-sns</artifactId>
+	<name>Modulo AWS SNS Connection</name>
+	<description>Modulo de conexão com AWS SNS</description>
+
+	<dependencies>
+	
+	  	<!-- AWS Auth -->
+  		<dependency>
+  			<groupId>br.com.fast.aws.connections.auth</groupId>
+ 		 	<artifactId>fast-aws-connection-auth</artifactId>
+   		</dependency>
+
+		<!-- Commons Connections -->
+		<dependency>
+			<groupId>br.com.fast.aws.connections.commons</groupId>
+ 			<artifactId>fast-aws-connection-commons</artifactId>
+		</dependency>
+		
+		<!-- AWS SNS-->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sns</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+</project>

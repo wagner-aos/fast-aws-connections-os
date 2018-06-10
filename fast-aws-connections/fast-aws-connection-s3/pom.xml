@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>br.com.fast.aws.connections</groupId>
+    <artifactId>fast-aws-connections</artifactId>
+    <version>2.10.73</version>
+  </parent>
+  
+  <groupId>br.com.fast.aws.connections.s3</groupId>
+  <artifactId>fast-aws-connection-s3</artifactId>
+  <name>Modulo AWS S3 Connection</name>
+  <description>Modulo de conexao com S3</description>
+
+   <dependencies>
+   
+   		<!-- AWS Auth -->
+  		<dependency>
+  			<groupId>br.com.fast.aws.connections.auth</groupId>
+ 		 	<artifactId>fast-aws-connection-auth</artifactId>
+   		</dependency>
+
+		<!-- Commons Connections -->
+		<dependency>
+			<groupId>br.com.fast.aws.connections.commons</groupId>
+ 			<artifactId>fast-aws-connection-commons</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+		</dependency>
+
+		<dependency>
+	      	<groupId>junit</groupId>
+	      	<artifactId>junit</artifactId>
+	      	<scope>test</scope>
+	    </dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<skipTests>true</skipTests>
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

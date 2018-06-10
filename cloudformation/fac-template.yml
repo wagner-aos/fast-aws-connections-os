@@ -1,0 +1,131 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Stack to test Fast AWS Connections API'
+Parameters:
+  #SQS
+  QueueName:
+    Type: String
+  ReceiveMessageWaitTimeSeconds:
+    Type: Number
+  VisibilityTimeout:
+    Type: Number
+  MaximumMessageSize:
+    Type: Number
+  MessageRetentionPeriod:
+    Type: Number
+  DelaySeconds:
+    Type: Number
+  #Dynamo
+  TableName:
+    Type: String
+  TableNamePolymorphic:
+    Type: String
+  #Kinesis
+  
+Resources:
+  #SQS
+  FastAWSConnetionsQueue:
+    Type: "AWS::SQS::Queue"
+    Properties:
+      QueueName: !Ref QueueName
+      MaximumMessageSize: !Ref MaximumMessageSize
+      MessageRetentionPeriod: !Ref MessageRetentionPeriod
+      ReceiveMessageWaitTimeSeconds: !Ref ReceiveMessageWaitTimeSeconds
+      VisibilityTimeout: !Ref VisibilityTimeout
+      DelaySeconds: !Ref DelaySeconds
+  #Dynamo
+  FastAWSConnectionsGestaoIdentificadorTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: codIdentificador
+        AttributeType: S
+      - AttributeName: dataInclusao
+        AttributeType: S
+      - AttributeName: id
+        AttributeType: S
+      - AttributeName: idCliente
+        AttributeType: N
+      - AttributeName: idConta
+        AttributeType: N
+      - AttributeName: nuIdentificador
+        AttributeType: N
+      - AttributeName: placa
+        AttributeType: S
+      TableName: !Ref TableName
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      GlobalSecondaryIndexes:
+      - IndexName: _GIPlacaIndex
+        KeySchema:
+        - AttributeName: placa
+          KeyType: HASH
+        - AttributeName: dataInclusao
+          KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+      - IndexName: _GIClienteContaIndex
+        KeySchema:
+        - AttributeName: idCliente
+          KeyType: HASH
+        - AttributeName: idConta
+          KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+      - IndexName: _GINuIdentificadorIndex
+        KeySchema:
+        - AttributeName: nuIdentificador
+          KeyType: HASH
+        - AttributeName: dataInclusao
+          KeyType: RANGE
+        Projection:
+          ProjectionType: ALL  
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+      - IndexName: _GICodIdentificadorIndex
+        KeySchema:
+        - AttributeName: codIdentificador
+          KeyType: HASH
+        - AttributeName: dataInclusao
+          KeyType: RANGE
+        Projection:
+          ProjectionType: ALL  
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+  #Dynamo
+  FastAWSConnectionsECPolymorphic:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: dataInclusao
+        AttributeType: S
+      - AttributeName: id
+        AttributeType: N
+      TableName: !Ref TableNamePolymorphic
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      - AttributeName: dataInclusao
+        KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+  #Kinesis   
+  FastAWSConnectionsStream:
+    Type: "AWS::Kinesis::Stream"
+    Properties: 
+      Name: FastAWSConnectionsStream
+      RetentionPeriodHours: 24
+      ShardCount: 1
+    

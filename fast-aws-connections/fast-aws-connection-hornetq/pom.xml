@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>br.com.fast.aws.connections</groupId>
+    <artifactId>fast-aws-connections</artifactId>
+    <version>2.10.73</version>
+  </parent>
+  
+	  <groupId>br.com.fast.aws.connections.hornetq</groupId>
+	  <artifactId>fast-aws-connection-hornetq</artifactId>
+	  <name>Modulo AWS HornetQ 2.3.12 Connection</name>
+	  <description>Modulo de conexão com HornetQ</description>
+
+  	<dependencies>
+  
+		<!-- AWS Auth -->
+  		<dependency>
+  			<groupId>br.com.fast.aws.connections.auth</groupId>
+ 			 	<artifactId>fast-aws-connection-auth</artifactId>
+   		</dependency>
+
+		<!-- Commons Connections -->
+		<dependency>
+			<groupId>br.com.fast.aws.connections.commons</groupId>
+ 				<artifactId>fast-aws-connection-commons</artifactId>
+		</dependency>
+  
+  	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		
+		<!-- HornetQ -->
+		<dependency>
+			<groupId>org.hornetq</groupId>
+			<artifactId>hornetq-server</artifactId>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.hornetq</groupId>
+			<artifactId>hornetq-jms-server</artifactId>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.hornetq</groupId>
+			<artifactId>hornetq-jms-client</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hornetq</groupId>
+			<artifactId>hornetq-core-client</artifactId>
+		</dependency>
+	
+		<dependency>
+	      	<groupId>junit</groupId>
+	      	<artifactId>junit</artifactId>
+	      	<scope>test</scope>
+	    </dependency>
+	    
+	    <!-- Protobuf -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+  
+</project>

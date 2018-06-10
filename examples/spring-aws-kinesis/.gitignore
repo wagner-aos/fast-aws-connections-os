@@ -1,0 +1,15 @@
+target/
+/target/
+*/target/*
+target/*
+
+### Eclipse ###
+.classpath
+/.classpath
+.project
+/.project
+.settings
+/.settings
+/build/
+.orig
+/README.md.orig

@@ -1,0 +1,12 @@
+/pom.xml.versionsBackup
+**/pom.xml.versionsBackup
+/release.properties
+**/release.properties
+/pom.xml.releaseBackup
+**/pom.xml.releaseBackup
+/pom.xml.orig
+**/pom.xml.orig
+.idea
+**/*.iml
+
+

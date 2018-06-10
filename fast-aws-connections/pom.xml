@@ -1,0 +1,396 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+  
+    <groupId>br.com.fast.aws.connections</groupId>
+    <artifactId>fast-aws-connections</artifactId>
+    <version>2.10.73</version>
+    <packaging>pom</packaging>
+  
+    <name>Projeto Fast AWS Connections ${project.version} OS</name>
+    <description>Projeto de API de conexoes para adapters de microservicos</description>
+    <url>https://github.com/wagner-aos/fast-aws-connections-os</url>
+
+    <organization>
+        <name>AOS</name>
+        <url>https://github.com/wagner-aos</url>
+    </organization>
+  
+    <modules>
+        <module>fast-aws-connection-auth</module>
+        <module>fast-aws-connection-commons</module>
+        <module>fast-aws-connection-dynamodb</module>
+        <module>fast-aws-connection-sqs</module>
+        <module>fast-aws-connection-sns</module>
+        <module>fast-aws-connection-kinesis</module>
+        <module>fast-aws-connection-s3</module>
+        <module>fast-aws-connection-hornetq</module>
+        <module>fast-aws-connection-redis</module>
+        <module>fast-aws-connection-redshift</module>
+        <module>fast-aws-connection-lambda</module>
+        <module>fast-aws-connection-pinpoint</module>
+    </modules>
+  
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <java.version>1.8</java.version>
+					
+        <!-- Versões Connection Modules -->		
+        <fast-aws-connection.version>${project.version}</fast-aws-connection.version>
+				
+        <!-- Versões Dependências Diversas-->
+    	<amazon-aws.version>1.11.297</amazon-aws.version>
+        <aws-redshift.version>1.11.224</aws-redshift.version>
+        <amazon-kinesis-client.version>1.7.2</amazon-kinesis-client.version>
+        <spring-jms.version>4.3.7.RELEASE</spring-jms.version> 
+        <javax.jms.version>2.0.1</javax.jms.version>
+        <redisson.version>3.2.4</redisson.version>
+        <hornetq.version>2.3.12.Final</hornetq.version>
+        <slf4j.version>1.1.7</slf4j.version>
+        <log.classic.version>1.1.7</log.classic.version>
+        <log4j-over.version>1.7.21</log4j-over.version>
+        <gson.version>2.5</gson.version>
+        <yaml.version>1.18</yaml.version>
+        <protobuf-java.version>3.1.0</protobuf-java.version>
+        <commons-lang.version>2.6</commons-lang.version>
+		
+        <!-- Sonar -->
+        <jacoco.version>0.7.2.201409121644</jacoco.version>
+        <testng.version>6.8.8</testng.version>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPath>${project.build.directory}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.language>java</sonar.language>
+		
+        <sonar.exclusions>
+            **/**Configuration.*,
+            **/**Exception.*,
+            **/**Builder.*,
+            **/**Entity.*,
+            **/**Config.*,
+            **/**Creator.*,
+            **/**Enum.*
+        </sonar.exclusions>
+		
+    </properties>
+	
+    <dependencyManagement>
+        <dependencies>
+		
+            <!-- AWS SKD Core -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-core</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- STS -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-sts</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+		
+            <!-- Spring JMS --> 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring-jms.version}</version>
+            </dependency>
+   
+            <!-- AWS SQS -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-sqs</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>amazon-sqs-java-messaging-lib</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+			
+            <!-- SNS -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-sns</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- AWS DynamoDB-->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-dynamodb</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- AWS Kinesis-->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-kinesis</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>amazon-kinesis-client</artifactId>
+                <version>${amazon-kinesis-client.version}</version>
+            </dependency>
+			
+            <!-- AWS S3-->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- AWS Lambda-->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-lambda</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- Redshift -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-redshift</artifactId>
+                <version>${aws-redshift.version}</version>
+            </dependency>
+      
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20170516</version>
+            </dependency>
+			
+            <!-- HornetQ -->
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>javax.jms-api</artifactId>
+                <version>${javax.jms.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-server</artifactId>
+                <version>${hornetq.version}</version>
+            </dependency>
+				
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-jms-server</artifactId>
+                <version>${hornetq.version}</version>
+            </dependency>
+			
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-jms-client</artifactId>
+                <version>${hornetq.version}</version>
+            </dependency>
+			
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-core-client</artifactId>
+                <version>${hornetq.version}</version>
+            </dependency>
+			
+            <!-- Protobuf -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
+            </dependency>
+			
+            <!-- Redis -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            
+            <!-- PinPoint -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-pinpoint</artifactId>
+                <version>${amazon-aws.version}</version>
+            </dependency>
+			
+            <!-- GSON -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+			
+            <!-- YAML -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${yaml.version}</version>
+            </dependency>
+						
+            <!-- JUnit -->			
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+		    
+            <!-- Commons Lang -->
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+			    		
+            <!-- MODULES CONNECTIONS -->
+
+            <!-- AWS Connections Auth -->
+            <dependency>
+                <groupId>br.com.fast.aws.connections.auth</groupId>
+                <artifactId>fast-aws-connection-auth</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            
+            <!-- Commons Connections-->
+            <dependency>
+                <groupId>br.com.fast.aws.connections.commons</groupId>
+                <artifactId>fast-aws-connection-commons</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>br.com.fast.aws.connections.sqs</groupId>
+                <artifactId>fast-aws-connection-sqs</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.sns</groupId>
+                <artifactId>fast-aws-connection-sns</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.dynamodb</groupId>
+                <artifactId>fast-aws-connection-dynamodb</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.kinesis</groupId>
+                <artifactId>fast-aws-connection-kinesis</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.hornetq</groupId>
+                <artifactId>fast-aws-connection-hornetq</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.redis</groupId>
+                <artifactId>fast-aws-connection-redis</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.s3</groupId>
+                <artifactId>fast-aws-connection-s3</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.lambda</groupId>
+                <artifactId>fast-aws-connection-lambda</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.redshift</groupId>
+                <artifactId>fast-aws-connection-redshift</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.fast.aws.connections.pinpoint</groupId>
+    			<artifactId>fast-aws-connection-pinpoint</artifactId>
+                <version>${fast-aws-connection.version}</version>
+            </dependency>
+			
+        </dependencies>
+    </dependencyManagement>
+	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <!-- Jacoco Code Coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/jacoco</outputDirectory>
+                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                    <append>true</append>
+                    <excludes>
+                        <exclude>**/**Configuration.*</exclude>
+                        <exclude>**/**Exception.*</exclude>
+                        <exclude>**/**Builder.*</exclude>
+                        <exclude>**/**Entity.*</exclude>
+                        <exclude>**/**Parse.*</exclude>
+                        <exclude>**/**Config.*</exclude>
+                        <exclude>**/**Creator.*</exclude>
+                        <exclude>**/**Enum.*</exclude>
+                    </excludes>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
+        </plugins>
+    </build>
+    
+    <developers>
+	    <developer>
+	      <id>wagner-aos</id>
+	      <name>Wagner Alves de Oliveira Silva</name>
+	      <email>wagner.aos.sa@gmail.com</email>
+	      <organization>AOS</organization>
+          <organizationUrl>https://github.com/wagner-aos</organizationUrl>
+	      <roles>
+	        <role>architect</role>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>America/Sao Paulo</timezone>
+	    </developer>
+    </developers>
+  
+</project>
