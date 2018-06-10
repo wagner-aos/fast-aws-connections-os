@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.S3Object;
 
 import br.com.fast.aws.connection.s3.S3AdapterClient;
@@ -22,9 +21,7 @@ import br.com.fast.aws.connection.s3.S3AdapterConfiguration;
 public class S3AdapterClientTest {
 
     private static boolean useEndpoint = false;
-    /*    private static String host = "s3";
-    private static Integer port = 8000;*/
-    private static String bucketName = "bucket-fast-aws-connections";
+    private static String bucketName = "fast-aws-connections-bucket";
 
     private S3AdapterClient client;
     private String conteuDoArquivo;
@@ -50,13 +47,11 @@ public class S3AdapterClientTest {
     @Test
     public void deveCriarBucketEenviarArquivo() throws IOException {
 
-        // Criar
-        Bucket bucket = client.criaBucket(bucketName);
         // Enviar arquivo
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3.txt");
 
         // Buscar
-        S3Object s3Object = client.obtemDoBucket(bucket.getName(), "testeS3.txt");
+        S3Object s3Object = client.obtemDoBucket(bucketName, "testeS3.txt");
 
         // Ler o conteudo do arquivo
         BufferedReader reader = new BufferedReader(new InputStreamReader(s3Object.getObjectContent()));
@@ -69,9 +64,6 @@ public class S3AdapterClientTest {
     @Test
     public void deveCriarBucketEenviarObjetoTipoFile() throws IOException {
 
-        // Criar
-        Bucket bucket = client.criaBucket(bucketName);
-
         File file = createFile(conteuDoArquivo.getBytes(), "arquivo-teste-s3");
         String fileKey = client.generateKeyForfile();
 
@@ -79,7 +71,7 @@ public class S3AdapterClientTest {
         client.enviaFileParaBucket(bucketName, fileKey, file);
 
         // Buscar
-        S3Object s3Object = client.obtemDoBucket(bucket.getName(), fileKey);
+        S3Object s3Object = client.obtemDoBucket(bucketName, fileKey);
 
         // Ler o conteudo do arquivo
         BufferedReader reader = new BufferedReader(new InputStreamReader(s3Object.getObjectContent()));
@@ -93,11 +85,10 @@ public class S3AdapterClientTest {
     public void deveDeletarArquivoDoBucket() throws IOException {
         // Criar
         String fileName = "testeS3.txt";
-        Bucket bucket = client.criaBucket(bucketName);
 
-        client.removeDoBucket(bucket.getName(), fileName);
+        client.removeDoBucket(bucketName, fileName);
 
-        client.obtemDoBucket(bucket.getName(), fileName);
+        client.obtemDoBucket(bucketName, fileName);
 
     }
 
@@ -107,19 +98,16 @@ public class S3AdapterClientTest {
         String folderName = "arquivos";
         String fileName = folderName.concat("/").concat("testeS3.txt");
 
-        // Criar
-        Bucket bucket = client.criaBucket(bucketName);
-
         // Criar folder
-        client.createFolder(bucket.getName(), folderName);
+        client.createFolder(bucketName, folderName);
 
         // Enviar arquivo para o diretorio
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, fileName);
+        client.enviaParaBucket(bucketName, conteuDoArquivo, fileName);
 
         // Remover folder
-        client.removeFolder(bucket.getName(), folderName);
+        client.removeFolder(bucketName, folderName);
 
-        client.obtemDoBucket(bucket.getName(), fileName);
+        client.obtemDoBucket(bucketName, fileName);
 
     }
 
@@ -139,13 +127,13 @@ public class S3AdapterClientTest {
     public void deveEsvaziarBucket() {
 
         // Criar
-        Bucket bucket = client.criaBucket(bucketName);
+       
         // Enviar arquivo
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3_01.txt");
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3_02.txt");
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3_03.txt");
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3_04.txt");
-        client.enviaParaBucket(bucket.getName(), conteuDoArquivo, "testeS3_05.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3_01.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3_02.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3_03.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3_04.txt");
+        client.enviaParaBucket(bucketName, conteuDoArquivo, "testeS3_05.txt");
 
         sleep(2000);
 
@@ -156,15 +144,8 @@ public class S3AdapterClientTest {
 
     @Test
     public void verificaSeExisteBucket() {
-        // Criar
-        client.criaBucket(bucketName);
-
-        sleep(2000);
-
         boolean existeBucket = client.existeBucket(bucketName);
-
         assertEquals(true, existeBucket);
-
     }
 
     @Test

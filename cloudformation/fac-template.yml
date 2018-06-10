@@ -32,6 +32,8 @@ Resources:
       ReceiveMessageWaitTimeSeconds: !Ref ReceiveMessageWaitTimeSeconds
       VisibilityTimeout: !Ref VisibilityTimeout
       DelaySeconds: !Ref DelaySeconds
+  #SNS
+
   #Dynamo
   FastAWSConnectionsGestaoIdentificadorTable:
     Type: "AWS::DynamoDB::Table"
@@ -128,4 +130,10 @@ Resources:
       Name: FastAWSConnectionsStream
       RetentionPeriodHours: 24
       ShardCount: 1
+  #S3
+  FastAWSConnectionsBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: fast-aws-connections-bucket
+  
     
