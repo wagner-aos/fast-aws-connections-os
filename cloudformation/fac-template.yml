@@ -33,6 +33,7 @@ Resources:
       VisibilityTimeout: !Ref VisibilityTimeout
       DelaySeconds: !Ref DelaySeconds
   #SNS
+  #https://docs.aws.amazon.com/pt_br/sns/latest/dg/SendMessageToSQS.html
   FastAWSConnetionsTopic:
     Type: "AWS::SNS::Topic"
     Properties: 
