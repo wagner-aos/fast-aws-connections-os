@@ -33,6 +33,21 @@ Resources:
       VisibilityTimeout: !Ref VisibilityTimeout
       DelaySeconds: !Ref DelaySeconds
   #SNS
+  FastAWSConnetionsTopic:
+    Type: "AWS::SNS::Topic"
+    Properties: 
+      TopicName: FastAWSConnetionsTopic
+      Subscription:
+      - Endpoint:
+          Fn::GetAtt:
+          - FastAWSConnetionsSQSTopicSubscribe
+          - Arn
+        Protocol: sqs
+  #SQS Topic Subscribe  
+  FastAWSConnetionsSQSTopicSubscribe:
+    Type: "AWS::SQS::Queue"
+    Properties:
+      QueueName: FastAWSConnetionsSQSTopicSubscribe
 
   #Dynamo
   FastAWSConnectionsGestaoIdentificadorTable:

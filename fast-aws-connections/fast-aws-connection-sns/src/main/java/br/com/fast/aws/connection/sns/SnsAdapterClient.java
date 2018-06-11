@@ -1,14 +1,19 @@
 package br.com.fast.aws.connection.sns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.model.ConfirmSubscriptionRequest;
 import com.amazonaws.services.sns.model.ConfirmSubscriptionResult;
 import com.amazonaws.services.sns.model.CreateTopicResult;
 import com.amazonaws.services.sns.model.DeleteTopicResult;
+import com.amazonaws.services.sns.model.ListTopicsResult;
 import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.PublishResult;
 import com.amazonaws.services.sns.model.SubscribeRequest;
 import com.amazonaws.services.sns.model.SubscribeResult;
+import com.amazonaws.services.sns.model.Topic;
 
 import br.com.fast.aws.connection.commons.interfaces.JSONConvertable;
 
@@ -96,7 +101,7 @@ public class SnsAdapterClient {
      */
     public void publish(String json, String topicNameARN) {
 
-        System.out.println("publicando no tópico" + topicNameARN);
+        System.out.println("publicando no tópico: " + topicNameARN);
 
         PublishRequest publishRequest = new PublishRequest(topicNameARN, json);
         PublishResult publishResult = snsClient.publish(publishRequest);
@@ -136,6 +141,26 @@ public class SnsAdapterClient {
 
         System.out.println("Topico Criado: " + deleteTopicResult.getSdkResponseMetadata());
         return deleteTopicResult;
+    }
+    
+    public String getTopicArn(String topicName) {
+        List<Topic> topics = new ArrayList<>();
+
+        ListTopicsResult result = snsClient.listTopics();
+        topics.addAll(result.getTopics());
+
+        while (result.getNextToken() != null) {
+            result = snsClient.listTopics(result.getNextToken());
+            topics.addAll(result.getTopics());
+        }
+
+        for (Topic topic : topics) {
+            if(topic.getTopicArn().contains(topicName)) {
+                return topic.getTopicArn();
+            }
+        }
+        
+        return null;
     }
 
 }

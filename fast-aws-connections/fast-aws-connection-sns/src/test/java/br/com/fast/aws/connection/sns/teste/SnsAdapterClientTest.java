@@ -1,22 +1,16 @@
 package br.com.fast.aws.connection.sns.teste;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
-import com.amazonaws.services.sns.model.CreateTopicResult;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
-import com.amazonaws.services.sqs.model.GetQueueUrlRequest;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
+import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.ReceiveMessageResult;
 
 import br.com.fast.aws.connection.auth.chain.AWSAuth;
 import br.com.fast.aws.connection.sns.SnsAdapterClient;
@@ -29,16 +23,10 @@ public class SnsAdapterClientTest {
     private SnsAdapterClient client;
     private String host = "sns";
     private Integer port = 9324;
-    private String topicNameTeste = "topic-fast-aws-connection-sns2";
-    private String topicNameTesteARN;
+    private String topicName = "FastAWSConnetionsTopic";
+    private String topicNameARN;
 
-    @SuppressWarnings("unused")
-    private String topicSubscriptionARN;
-
-    private String sqsQueueName = "filaDeTesteParaSNS2";
-
-    @SuppressWarnings("unused")
-    private String sqsQueueARN;
+    private String sqsQueueName = "FastAWSConnetionsSQSTopicSubscribe";
 
     private AmazonSQS sqsClient;
     private PassagemDTO dto;
@@ -53,7 +41,7 @@ public class SnsAdapterClientTest {
                 .withHost(host)
                 .withPort(port)
                 .withUseEndpoint(useEndpoint)
-                .withTopicARN(topicNameTesteARN)
+                //.withTopicARN(topicNameARN)
                 .withSNSClient();
 
         sqsClient = createSQSClient();
@@ -66,46 +54,31 @@ public class SnsAdapterClientTest {
         dto.setPassAutomatica(true);
 
         this.dto = dto;
-
-        CreateTopicResult createTopic = client.createTopic(topicNameTeste);
-        topicNameTesteARN = createTopic.getTopicArn();
+        
+        topicNameARN = client.getTopicArn(topicName);
 
     }
 
     @Test
-    public void deveEnviarParaOTopico() {
-        client.publish(dto.toJSON(), topicNameTesteARN);
+    public void deveEnviarParaOTopicoEreceberNoSQS() throws InterruptedException {
+        //Send to topic
+        client.publish(dto.toJSON(), topicNameARN);
+        
+        Thread.sleep(5000);
+        
+        //TODO-- I need implement subscription confirmation
+        
+        //Receive from SQS Queue
+        ReceiveMessageResult receiveMessage = sqsClient.receiveMessage(sqsQueueName);
+        List<Message> messages = receiveMessage.getMessages();
+        
+        //Message message = messages.get(0);
+        
+        //System.out.println(message.getBody());
+       
     }
 
-    @Test
-    public void deveFazerSubscribe() throws InterruptedException {
-        // Criando fila de SQS para teste de Subscribe no SNS.
-        @SuppressWarnings("unused")
-        CreateQueueResult createQueue = sqsClient.createQueue(sqsQueueName);
-
-        Thread.sleep(6000);
-
-        GetQueueUrlRequest request = new GetQueueUrlRequest().withQueueName(sqsQueueName);
-        GetQueueUrlResult queueUrlResult = sqsClient.getQueueUrl(request);
-        String queueURL = queueUrlResult.getQueueUrl();
-
-        GetQueueAttributesResult queueAttributes = sqsClient.getQueueAttributes(queueURL, Arrays.asList("QueueArn"));
-        Map<String, String> attributes = queueAttributes.getAttributes();
-        Collection<String> values = attributes.values();
-        String queueARN = values.toString();
-        // Thread.sleep(5000);
-        System.out.println("SQS QUEUE_ARN: " + queueARN);
-
-        // SubscribeResult subscribeResult = client.sQSsubscribeTopic(topicNameTesteARN, queueARN);
-
-        // System.out.println("SUBSCRIBE-RESULT: " + subscribeResult.getSubscriptionArn());
-    }
-
-    @After
-    public void deleteTopic() {
-        client.deleteTopic(topicNameTesteARN);
-    }
-
+   
     private AmazonSQS createSQSClient() {
 
         if (useEndpoint) {
@@ -117,9 +90,7 @@ public class SnsAdapterClientTest {
             		.withCredentials(new AWSAuth().getCredentialsProviderChain(null, null, "dev"))
                     .withEndpointConfiguration(endpointConfiguration)
                     .build();
-
         } else {
-
             return AmazonSQSClient.builder()
             		.withCredentials(new AWSAuth().getCredentialsProviderChain(null, null, "dev"))
                     .withRegion("us-east-1")
