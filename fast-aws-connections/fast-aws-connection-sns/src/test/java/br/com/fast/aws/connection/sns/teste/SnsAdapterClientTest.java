@@ -66,15 +66,13 @@ public class SnsAdapterClientTest {
         
         Thread.sleep(5000);
         
-        //TODO-- I need implement subscription confirmation
-        
         //Receive from SQS Queue
         ReceiveMessageResult receiveMessage = sqsClient.receiveMessage(sqsQueueName);
         List<Message> messages = receiveMessage.getMessages();
         
-        //Message message = messages.get(0);
+        Message message = messages.get(0);
         
-        //System.out.println(message.getBody());
+        System.out.println(message.getBody());
        
     }
 
