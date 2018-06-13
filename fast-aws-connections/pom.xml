@@ -69,6 +69,8 @@
             **/**Exception.*,
             **/**Builder.*,
             **/**Entity.*,
+            **/**DTO.*,
+            **/**Dto.*,
             **/**Config.*,
             **/**Creator.*,
             **/**Enum.*
@@ -325,6 +327,7 @@
                 <configuration>
                     <skipTests>false</skipTests>
                     <includes>
+                    	<include>**/commons.teste/*Test.java</include>
                         <include>**/dynamodb.teste/*Test.java</include>
                         <include>**/kinesis.teste/*Test.java</include>
                         <include>**/s3.teste/*Test.java</include>
@@ -355,6 +358,8 @@
                         <exclude>**/**Exception.*</exclude>
                         <exclude>**/**Builder.*</exclude>
                         <exclude>**/**Entity.*</exclude>
+                        <exclude>**/**DTO.*</exclude>
+                        <exclude>**/**Dto.*</exclude>
                         <exclude>**/**Parse.*</exclude>
                         <exclude>**/**Config.*</exclude>
                         <exclude>**/**Creator.*</exclude>

@@ -1,4 +1,4 @@
-package br.com.fast.aws.connection.dto.teste;
+package br.com.fast.aws.connection.commons.teste;
 
 import java.util.Date;
 
