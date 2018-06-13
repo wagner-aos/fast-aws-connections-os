@@ -3,9 +3,9 @@ AWSTemplateFormatVersion: '2010-09-09'
   Description: This cloudformation template creates a VPC
   Parameters:
   - ParameterKey: CompanyName
-    ParameterValue: Veloe
+    ParameterValue: AOS
   - ParameterKey: AccountSetupStack
-    ParameterValue: VeloeAccountSetup
+    ParameterValue: AOSAccountSetup
   - ParameterKey: Az2
     ParameterValue: us-east-1d
   - ParameterKey: Environment
@@ -13,7 +13,7 @@ AWSTemplateFormatVersion: '2010-09-09'
   - ParameterKey: Az1
     ParameterValue: us-east-1c
   - ParameterKey: Route53HostedZoneDomain
-    ParameterValue: local.veloe.com.br
+    ParameterValue: local.aos.com.br
   Resources:
     VPC:
       Type: AWS::EC2::VPC
