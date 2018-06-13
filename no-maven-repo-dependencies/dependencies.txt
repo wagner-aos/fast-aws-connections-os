@@ -1,0 +1,22 @@
+
+<!-- DAX -->
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>DaxJavaClient</artifactId>
+    <version>latest</version>
+</dependency>
+
+<!-- DynamoDB GEO -->
+<dependency>
+    <groupId>com.amazonaws.geo</groupId>
+    <artifactId>dynamodb-geo</artifactId>
+</dependency>  
+
+
+
+<dependency>
+    <groupId>com.ibm.mq</groupId>
+    <artifactId>allclient</artifactId>
+    <version>1.0</version>
+</dependency>
+

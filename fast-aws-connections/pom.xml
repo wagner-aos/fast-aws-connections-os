@@ -323,9 +323,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/dynamodb.teste/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
