@@ -16,7 +16,7 @@ public class RedisAdapterClientTest {
 
     private static String user = "x";
     private static String password = "x";
-    private static String host = "artesp.rkcdrm.0001.use1.cache.amazonaws.com";
+    private static String host = "fast-aws-connections.rkcdrm.0001.use1.cache.amazonaws.com";
     private static String port = "6379";
     private static String redisMap = "SequencialRedis";
     private static Long sequentialInit = 15L;
