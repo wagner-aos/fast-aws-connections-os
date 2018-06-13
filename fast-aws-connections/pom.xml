@@ -326,6 +326,10 @@
                     <skipTests>false</skipTests>
                     <includes>
                         <include>**/dynamodb.teste/*Test.java</include>
+                        <include>**/kinesis.teste/*Test.java</include>
+                        <include>**/s3.teste/*Test.java</include>
+                        <include>**/sns.teste/*Test.java</include>
+                        <include>**/sqs.teste/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>

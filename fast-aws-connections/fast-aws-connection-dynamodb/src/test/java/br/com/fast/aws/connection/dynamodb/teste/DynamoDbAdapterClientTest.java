@@ -35,7 +35,6 @@ import br.com.fast.aws.connection.dynamodb.teste.entity.NumeroIdentificadorTeste
 public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
     private static boolean isExecuting;
-    private static int testQuantity;
 
     @Before
     public void setUp() throws InterruptedException {
@@ -74,12 +73,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
             
             //Waiting
             Thread.sleep(5000);
-            
-            // Cria um tabela para os testes.
-            //client.createTable(tableName, GestaoIdentificadorTesteEntity.class);
-
-            // Cria uma tabela para os testes polimorficos
-            //clientPolymorphic.createTable(tableNamePolymorphic, EstabelecimentoComercialTesteEntity.class);
+    
         }
     }
 
@@ -105,7 +99,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         assertEquals(entityRetornada, entity);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -132,7 +126,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         assertEquals(result.getNuIdentificador(), entity.getNuIdentificador());
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -154,7 +148,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         assertNull(obj);
 
-        testQuantity++;
+        
     }
 
     /**
@@ -182,7 +176,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         assertEquals(0, listaResult.size());
 
-        testQuantity++;
+        
     }
 
     /**
@@ -203,7 +197,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         assertEquals(resultList.get(0), entity);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -226,7 +220,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         assertEquals(resultList.get(0), entity);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
     }
 
@@ -248,7 +242,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         assertEquals(resultList.get(0), entity);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
     }
 
@@ -270,7 +264,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         assertEquals(resultList.get(0), entity);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
     }
 
@@ -318,7 +312,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         assertEquals(2, listaDeIdentificadoresComPredicate.size());
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -345,7 +339,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         assertEquals("1010", concessionariaEsperada.getCodConcessionaria());
         assertEquals("1011", estacionamentoEsperado.getCodEstacionamento());
 
-        testQuantity++;
+        
         estabelecimentoComercialTearDown();
 
     }
@@ -370,7 +364,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         System.out.println("....");
 
-        testQuantity++;
+        
         estabelecimentoComercialTearDown();
 
     }
@@ -392,7 +386,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         System.out.println("....");
 
-        testQuantity++;
+        
         estabelecimentoComercialTearDown();
 
     }
@@ -408,7 +402,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         Assert.assertEquals(1, list.size());
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -473,7 +467,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         int countScan = client.countScan(GestaoIdentificadorTesteEntity.class, new DynamoDBScanExpression());
         Assert.assertEquals(5, countScan);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -497,7 +491,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
         // Assert
         Assert.assertEquals(1, countQuery);
 
-        testQuantity++;
+        
         gestaoIdentificadorTearDown();
 
     }
@@ -509,8 +503,6 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
         String describeTableYAML = client.describeTableToYAML(tableName);
         System.out.println(describeTableYAML);
-
-        testQuantity++;
 
     }
 
@@ -532,14 +524,7 @@ public class DynamoDbAdapterClientTest extends DynamoDBBaseTeste {
 
 	@After
     public void deleteTable() {
-
-        if (testQuantity >= 15) {
-            System.out.println("Deletando tabela: " + tableName);
-            client.deleteTable(tableName, GestaoIdentificadorTesteEntity.class);
-            System.out.println("Deletando tabela: " + tableNamePolymorphic);
-            clientPolymorphic.deleteTable(tableNamePolymorphic, EstabelecimentoComercialTesteEntity.class);
-            System.out.println("Tabelas de teste removidas!!!");
-        }
+       
 
     }
 

@@ -16,8 +16,6 @@ import br.com.fast.aws.connection.dynamodb.teste.entity.CadastroTecnicoTesteEnti
 
 public class TableCreator {
 
-    private static String awsAccessKey = "AKIAIR2WH2TKMX4ODDBQ";
-    private static String awsSecretKey = "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";
     private static String awsRegion = "us-east-1";
     private static boolean useEndpoint = false;
     private static String host = "dynamodb";
@@ -26,7 +24,7 @@ public class TableCreator {
 
     public static void main(String[] args) {
 
-        if (!isAtivoGestaoIdentificador(getAmazonDynamoDBClient())) {
+        /*if (!isAtivoGestaoIdentificador(getAmazonDynamoDBClient())) {
 
             AmazonDynamoDB dbClient = getAmazonDynamoDBClient();
 
@@ -36,11 +34,11 @@ public class TableCreator {
             createTableRequest.setProvisionedThroughput(new ProvisionedThroughput(10L, 10L));
 
             // Seta o ProvisionedThroughput para todos os indexes da tabela
-            /*  List<GlobalSecondaryIndex> listaIndex = createTableRequest.getGlobalSecondaryIndexes();
+              List<GlobalSecondaryIndex> listaIndex = createTableRequest.getGlobalSecondaryIndexes();
             for (GlobalSecondaryIndex index : listaIndex) {
                 index.setProvisionedThroughput(new ProvisionedThroughput(10L, 10L));
                 index.setProjection(new Projection().withProjectionType(ProjectionType.ALL));
-            }*/
+            }
 
             dbClient.createTable(createTableRequest);
 
@@ -51,7 +49,7 @@ public class TableCreator {
                     Thread.currentThread().interrupt();
                 }
             }
-        }
+        }*/
 
     }
 
@@ -65,7 +63,7 @@ public class TableCreator {
         }
     }
 
-    public static AmazonDynamoDB getAmazonDynamoDBClient() {
+    /*public static AmazonDynamoDB getAmazonDynamoDBClient() {
 
         AmazonDynamoDB dbClient;
 
@@ -93,5 +91,5 @@ public class TableCreator {
 
         return dbClient;
     }
-
+*/
 }
