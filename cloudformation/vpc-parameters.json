@@ -1,0 +1,27 @@
+[
+    {
+        "ParameterKey": "CompanyName",
+        "ParameterValue": "AOS"
+    },
+    {
+        "ParameterKey": "AccountSetupStack",
+        "ParameterValue": "AOSAccountSetup"
+    },
+    {
+        "ParameterKey": "Az2",
+        "ParameterValue": "us-east-1d"
+    },
+    {
+        "ParameterKey": "Environment",
+        "ParameterValue": "Dev"
+    },
+    {
+        "ParameterKey": "Az1",
+        "ParameterValue": "us-east-1c"
+    },
+    {
+        "ParameterKey": "Route53HostedZoneDomain",
+        "ParameterValue": "local.aos.com.br"
+    }
+]
+
